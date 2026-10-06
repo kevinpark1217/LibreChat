@@ -10,8 +10,16 @@ jest.mock('react-i18next', () => ({
 }));
 
 describe('Button', () => {
-  it('paints a destructive button solid and tints it only when the theme asks', () => {
+  it('keeps a confirming destructive button solid in every theme', () => {
     const destructive = cn(buttonVariants({ variant: 'destructive' }));
+
+    expect(destructive).toContain('bg-surface-destructive');
+    expect(destructive).toContain('text-text-on-status');
+    expect(destructive).not.toContain('theme-destructive-soft:');
+  });
+
+  it('paints an inline destructive button solid and tints it only when the theme asks', () => {
+    const destructive = cn(buttonVariants({ variant: 'destructive-soft' }));
 
     expect(destructive).toContain('bg-surface-destructive');
     expect(destructive).toContain('text-text-on-status');
@@ -20,6 +28,15 @@ describe('Button', () => {
     // The ink stays at 4.5:1 over the light-theme tint only below a 20% hover and pressed share.
     expect(destructive).toContain('theme-destructive-soft:hover:bg-surface-destructive/14');
     expect(destructive).toContain('theme-destructive-soft:hover:active:bg-surface-destructive/17');
+  });
+
+  it('gives a floating control a surface only when its chrome outline is gone', () => {
+    const floating = cn(buttonVariants({ variant: 'floating', size: 'icon-theme' }));
+
+    expect(floating).toContain('border-border-chrome');
+    expect(floating).toContain('bg-surface-chat/90');
+    expect(floating).toContain('theme-chrome-quiet:bg-surface-chat');
+    expect(floating).toContain('theme-chrome-quiet:shadow-md');
   });
 
   it('outlines a toggle in the control border', () => {
