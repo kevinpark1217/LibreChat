@@ -11,6 +11,16 @@
   --color-green-*: initial;
 }
 
+/* Compact sizes below `text-xs`, and the half steps between the scale's stops, that dense
+ * chrome (shortcut hints, badges) measured in arbitrary px. They are fixed rather than
+ * theme-owned and carry no line height, as the arbitrary values they replace did. */
+@theme inline {
+  --text-3xs: 0.625rem;
+  --text-2xs: 0.6875rem;
+  --text-1xs: 0.71875rem;
+  --text-1sm: 0.8125rem;
+}
+
 /* Tailwind v4 changed two preflight defaults this app was built against. Each rule below
  * restores the v3 default rather than adopting the new one, so the upgrade carries no visual
  * change; drop one only as a deliberate design decision.
@@ -1560,10 +1570,12 @@ html {
   }
 }
 
-.shadow-stroke {
+.shadow-stroke,
+.avatar-stroke {
   position: relative;
 }
-.shadow-stroke:after {
+.shadow-stroke:after,
+.avatar-stroke:after {
   --tw-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
   --tw-shadow-colored: inset 0 0 0 1px var(--tw-shadow-color);
   border-radius: 9999px;
@@ -1575,7 +1587,9 @@ html {
   top: 0;
 }
 .dark .shadow-stroke:after,
-.shadow-stroke:after {
+.dark .avatar-stroke:after,
+.shadow-stroke:after,
+.avatar-stroke:after {
   box-shadow:
     0 0 transparent,
     0 0 transparent,
@@ -1584,7 +1598,8 @@ html {
     var(--tw-ring-offset-shadow, 0 0 transparent), var(--tw-ring-shadow, 0 0 transparent),
     var(--tw-shadow);
 }
-.dark .shadow-stroke:after {
+.dark .shadow-stroke:after,
+.dark .avatar-stroke:after {
   --tw-shadow: inset 0 0 0 1px hsla(0, 0%, 100%, 0.3);
   --tw-shadow-colored: inset 0 0 0 1px var(--tw-shadow-color);
 }
